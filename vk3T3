@@ -1,0 +1,110 @@
+***BottleDispencer***
+public class BottleDispenser {
+    private int bottles;
+    // The array for the Bottle-objects
+    private Bottle[] bottle_array;
+    private int money;
+    
+    public BottleDispenser() {
+        bottles = 50;
+        money = 0;
+        
+        // Initialize the array
+        bottle_array = new Bottle[bottles];
+        // Add Bottle-objects to the array
+        for(int i = 0;i<bottles;i++) {
+            // Use the default constructor to create new Bottles
+            bottle_array[i] = new Bottle();
+        }
+    }
+    
+	 public int getmoney() {
+		 return money;
+	 }
+	    
+	 public void addMoney() {
+		 money += 1;
+		 System.out.println("Klink! Added more money!");
+	 }
+	    
+	 public void buyBottle(String s, double price1) {
+		 if (money < price1) {
+			 System.out.println("Add money first!");
+		 }
+		 else {
+			 if (bottles > 0) {
+				 bottles -= 1;
+				 System.out.println("KACHUNK! " + s + " came out of the dispenser!");
+				 money -= 1;
+			 }
+			 else {
+				 System.out.println("No more bottles.");
+			 }
+		 }
+	 }
+	    
+	 public void returnMoney() {
+		 if (money > 0) {
+			 System.out.println("Klink klink. Money came out!");
+		 }
+		 else {
+			 System.out.println("Klink klink. All money gone!");
+		 }
+	 }
+}
+
+***Bottle***
+public class Bottle {
+	
+    private String name;
+    private String manufacturer;
+    private double total_energy;
+    private double price;
+    private double size;
+    
+    public Bottle(){}
+    public Bottle(String name1, String manuf, double d, double size1, double price1){
+    	name = name1;
+    	manufacturer = manuf;
+    	total_energy = d;
+    	size = size1;
+    	price = price1;
+    }
+    
+    public String getName(){
+    	return name;
+    }
+    
+    public String getManufacturer(){
+    	return manufacturer;
+    }
+    
+    public double getEnergy(){
+    	return total_energy;
+    }
+    
+    public double getprice(){
+    	return price;
+    }
+}
+
+***Maiclass***
+public class Mainclass {
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+
+		Bottle bottle = new Bottle("Pepsi Max", "Pepsi", 0.3, 0.5, 1.80);
+		BottleDispenser machine = new BottleDispenser();
+		
+		machine.addMoney();
+		machine.buyBottle(bottle.getName(), bottle.getprice());
+		machine.buyBottle(bottle.getName(), bottle.getprice());
+		machine.addMoney();
+		machine.addMoney();
+		machine.buyBottle(bottle.getName(), bottle.getprice());
+			if (machine.getmoney() > 0) {
+				machine.returnMoney();
+			}
+	}
+}
