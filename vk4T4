@@ -1,0 +1,144 @@
+***BottleDispencer***
+import java.util.ArrayList;
+
+public class BottleDispenser {
+    private int bottles;
+    private int money;
+    ArrayList<Bottle> bottleList = new ArrayList<Bottle>();
+    
+    public BottleDispenser() {
+        bottles = 5;
+        money = 0;
+        
+        for(int i = 0;i<bottles;i++) {
+        	bottleList.add(new Bottle("Pepsi Max", 0.5, 1.80));
+        }
+    }
+    public void printList() {
+    	for(int i = 0; i<bottleList.size(); i++) {
+    		System.out.println(i + 1 + ". Name: " + bottleList.get(i).getName());
+    		System.out.println("\tSize: " + bottleList.get(i).getSize() + "\tPrice: " + bottleList.get(i).getPrice());
+    	}
+	}
+    
+	public int getmoney() {
+		return money;
+	}
+	    
+	public void addMoney() {
+		money += 1;
+		System.out.println("Klink! Added more money!");
+	}
+	    
+	public void buyBottle(String s, double price1) {
+		if (money < price1) {
+			System.out.println("Add money first!");
+		}
+		else {
+			if (bottles > 0) {
+				bottles -= 1;
+				System.out.println("KACHUNK! " + s + " came out of the dispenser!");
+				money -= 1;
+				bottleList.remove(1);
+			}
+			else {
+				System.out.println("No more bottles.");
+			}
+		}
+	}
+	    
+	public void returnMoney() {
+		if (money > 0) {
+			System.out.println("Klink klink. Money came out!");
+		}
+		else {
+			System.out.println("Klink klink. All money gone!");
+		}
+	}
+}
+
+***Bottle***
+public class Bottle {
+	
+    private String name;
+    private String manufacturer;
+    private double total_energy;
+    private double price;
+    private double size;
+    
+    public Bottle(String name2, double size2, double price2){
+    	name = name2;
+    	size = size2;
+    	price = price2;
+    }
+    public Bottle(String name1, String manuf, double d, double size1, double price1){
+    	name = name1;
+    	manufacturer = manuf;
+    	total_energy = d;
+    	size = size1;
+    	price = price1;
+    }
+    
+    public String getName(){
+    	return name;
+    }
+    
+    public String getManufacturer(){
+    	return manufacturer;
+    }
+    
+    public double getEnergy(){
+    	return total_energy;
+    }
+    
+    public double getPrice(){
+    	return price;
+    }
+    
+    public double getSize(){
+    	return size;
+    }
+}
+
+***Mainclass***
+import java.util.Scanner;
+
+public class Mainclass {
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+
+		int input;
+		Bottle bottle = new Bottle("Pepsi Max", "Pepsi", 0.3, 0.5, 1.80);
+		BottleDispenser machine = new BottleDispenser();
+		
+
+		while (true) {
+			
+			System.out.println("\n*** BOTTLE DISPENSER ***");
+			System.out.println("1) Add money to the machine");
+			System.out.println("2) Buy a bottle");
+			System.out.println("3) Take money out");
+			System.out.println("4) List bottles in the dispenser");
+			System.out.println("0) End");
+			System.out.print("Your choice: ");
+			Scanner scanner = new Scanner(System.in);
+			input = scanner.nextInt();
+			if (input == 1) {
+				machine.addMoney();
+			}
+			else if (input == 2) {
+				machine.buyBottle(bottle.getName(), bottle.getPrice());
+			}
+			else if (input == 3) {
+				machine.returnMoney();
+			}
+			else if (input == 4) {
+				machine.printList();
+			}
+			else {
+				break;
+			}
+		}
+	}
+}
