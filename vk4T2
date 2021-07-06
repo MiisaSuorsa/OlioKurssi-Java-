@@ -1,0 +1,41 @@
+***Mainclass***
+public class Mainclass {
+	
+	public static void main(String[] args) {
+		
+		ReadAndWriteIO io = new ReadAndWriteIO();
+		
+		io.readAndWrite("input.txt", "output.txt");
+	}
+}
+
+***ReadAndWriteIO***
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class ReadAndWriteIO {
+	
+	public void readAndWrite(String r, String w) {
+		
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(r));
+			BufferedWriter bw = new BufferedWriter(new FileWriter(w));
+			String output = "";
+			while ((output = br.readLine()) != null) {
+				bw.write(output + "\n");
+			}
+			br.close();
+			bw.close();
+		} catch (FileNotFoundException e) {
+			System.out.println(System.getProperty("user.dir"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+}
